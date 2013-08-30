@@ -7,6 +7,8 @@ namespace Wookieb\Assert;
  *
  * @method static nullOrNotBlank($value, $message = 'Value cannot be blank')
  * @method static nullOrNotEmpty($value, $message = 'Value cannot be empty')
+ * @method static nullOrOk($value, $message = 'Value cannot be falsy')
+ * @method static nullOrFalsy($value, $message = 'Value cannot be truthy')
  */
 class Assert
 {
@@ -39,6 +41,35 @@ class Assert
             throw new AssertException($message);
         }
     }
+
+    /**
+     * Assert that value cannot be a falsy value
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function ok($value, $message = 'Value cannot be falsy')
+    {
+        if (!$value) {
+            throw new AssertException($message);
+        }
+    }
+
+    /**
+     * Assert that value cannot be a truthy value
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function falsy($value, $message = 'Value cannot be truthy')
+    {
+        if ($value) {
+            throw new AssertException($message);
+        }
+    }
+
 
     /**
      * Handle call of methods like "nullOr[assertionName]"
