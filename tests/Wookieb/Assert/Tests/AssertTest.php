@@ -116,4 +116,78 @@ class AssertTest extends \PHPUnit_Framework_TestCase
     {
         $this->runMethod('falsy', $value, $message);
     }
+
+    public function notNullDataProvider()
+    {
+        return array(
+            'truthy string' => array('name'),
+            'falsy value' => array(0),
+            'empty array' => array(array()),
+            'null wit' => array(null, 'Value cannot be null')
+        );
+    }
+
+    /**
+     * @dataProvider notNullDataProvider
+     */
+    public function testNotNull($value, $message = null)
+    {
+        $this->runMethod('notNull', $value, $message);
+    }
+
+    public function numberDataProvider()
+    {
+        return array(
+            'float' => array(1.11),
+            'zero' => array(0),
+            'integer' => array(10),
+            'numerish' => array('11.1'),
+            'true' => array('true', 'Value is not a number'),
+            'object' => array(new \stdClass(), 'Object is not a number')
+        );
+    }
+
+    /**
+     * @dataProvider numberDataProvider
+     */
+    public function testNumber($value, $message = null)
+    {
+        $this->runMethod('number', $value, $message);
+    }
+
+    public function positiveNumberProvider()
+    {
+        return array(
+            'positive number' => array(1),
+            'not a number' => array('name', 'Value is not a positive number'),
+            'negative number' => array(-1, 'Value cannot be less than zero please!'),
+            'zero' => array(0, 'Value is not a positive number')
+        );
+    }
+
+    /**
+     * @dataProvider positiveNumberProvider
+     */
+    public function testPositiveNumber($value, $message = null)
+    {
+        $this->runMethod('positiveNumber', $value, $message);
+    }
+
+    public function negativeNumberProvider()
+    {
+        return array(
+            'negative number' => array(-1),
+            'not a number' => array('name', 'Value is not a negative number'),
+            'positive number' => array(10, 'Value cannot be greater than zero please!'),
+            'zero' => array(0, 'Value is not a negative number')
+        );
+    }
+
+    /**
+     * @dataProvider negativeNumberProvider
+     */
+    public function testNegativeNumber($value, $message = null)
+    {
+        $this->runMethod('negativeNumber', $value, $message);
+    }
 }

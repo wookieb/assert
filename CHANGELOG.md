@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3
+- added "notNull", "number", "positiveNumber", "negativeNumber" methods
+
 ## 0.2
 - added "ok" and "falsy" methods
 

@@ -9,6 +9,9 @@ namespace Wookieb\Assert;
  * @method static nullOrNotEmpty($value, $message = 'Value cannot be empty')
  * @method static nullOrOk($value, $message = 'Value cannot be falsy')
  * @method static nullOrFalsy($value, $message = 'Value cannot be truthy')
+ * @method static nullOrNumber($value, $message = 'Value is not a number')
+ * @method static nullOrPositiveNumber($value, $message = 'Value is not a positive number')
+ * @method static nullOrNegativeNumber($value, $message = 'Value is not a negative number')
  */
 class Assert
 {
@@ -70,6 +73,62 @@ class Assert
         }
     }
 
+    /**
+     * Assert that value cannot be null
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function notNull($value, $message = 'Value cannot be null')
+    {
+        if ($value === null) {
+            throw new AssertException($message);
+        }
+    }
+
+    /**
+     * Assert that value must be a number
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function number($value, $message = 'Value is not a number')
+    {
+        if (!is_numeric($value)) {
+            throw new AssertException($message);
+        }
+    }
+
+    /**
+     * Assert that value must be a positive number (greater than 0)
+     * Remember to convert value to desired type (int or float)
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function positiveNumber($value, $message = 'Value is not a positive number')
+    {
+        if (!is_numeric($value) || !($value > 0)) {
+            throw new AssertException($message);
+        }
+    }
+
+    /**
+     * Assert that value must be a negative number (less than 0)
+     *
+     * @param mixed $value
+     * @param string $message
+     * @throws AssertException
+     */
+    public static function negativeNumber($value, $message = 'Value is not a negative number')
+    {
+        if (!is_numeric($value) || !($value < 0)) {
+            throw new AssertException($message);
+        }
+    }
 
     /**
      * Handle call of methods like "nullOr[assertionName]"
